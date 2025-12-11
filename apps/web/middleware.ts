@@ -68,15 +68,19 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protect /app routes - redirect to sign-in if not authenticated
+  // Protect /app routes - redirect to login if not authenticated
   if (request.nextUrl.pathname.startsWith('/app') && !user) {
-    const redirectUrl = new URL('/auth/sign-in', request.url)
+    const redirectUrl = new URL('/auth/login', request.url)
     redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)
     return NextResponse.redirect(redirectUrl)
   }
 
   // Redirect authenticated users away from auth pages
-  if (user && request.nextUrl.pathname.startsWith('/auth/sign-in')) {
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith('/auth/login') ||
+      request.nextUrl.pathname.startsWith('/auth/sign-in'))
+  ) {
     const redirectTo = request.nextUrl.searchParams.get('redirect') || '/app/dashboard'
     return NextResponse.redirect(new URL(redirectTo, request.url))
   }
@@ -85,8 +89,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)'],
 }
-

@@ -172,9 +172,9 @@ export default function DevLoginPage() {
                   type="button"
                   variant="ghost"
                   size="sm"
-                  onClick={() => router.push('/auth/sign-in')}
+                  onClick={() => router.push('/auth/login')}
                 >
-                  Use Production Sign-In Instead
+                  Use Production Login Instead
                 </Button>
               </div>
             </form>

@@ -5,36 +5,32 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { FadeIn, SlideUp, StaggerList } from '@/components/ui'
-import { 
-  Bot, 
-  Sparkles, 
-  Zap, 
-  Shield, 
-  Code, 
-  FileText,
-  ArrowRight
-} from 'lucide-react'
+import { Bot, Sparkles, Zap, Shield, Code, FileText, ArrowRight } from 'lucide-react'
 
 const features = [
   {
     icon: Bot,
     title: 'AI Agent Creation',
-    description: 'Build sophisticated AI agents with comprehensive specifications and prompt engineering.',
+    description:
+      'Build sophisticated AI agents with comprehensive specifications and prompt engineering.',
   },
   {
     icon: Sparkles,
     title: 'Spec-Driven Development',
-    description: 'Define your agent\'s mission, scope, and capabilities through structured specifications.',
+    description:
+      "Define your agent's mission, scope, and capabilities through structured specifications.",
   },
   {
     icon: Zap,
     title: 'Prompt Compilation',
-    description: 'Automatically compile specifications into optimized prompt packages for your AI models.',
+    description:
+      'Automatically compile specifications into optimized prompt packages for your AI models.',
   },
   {
     icon: Shield,
     title: 'Quality Assurance',
-    description: 'Built-in linting, scoring, and validation to ensure high-quality agent configurations.',
+    description:
+      'Built-in linting, scoring, and validation to ensure high-quality agent configurations.',
   },
   {
     icon: Code,
@@ -57,7 +53,10 @@ const stats = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20" role="main">
+    <main
+      className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20"
+      role="main"
+    >
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-24 md:py-32" aria-labelledby="hero-title">
         <div className="max-w-4xl mx-auto text-center space-y-8">
@@ -75,22 +74,21 @@ export default function Home() {
 
           <SlideUp delay={0.2}>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
-              Build, manage, and deploy AI agents with comprehensive specifications and quality assurance.
+              Build, manage, and deploy AI agents with comprehensive specifications and quality
+              assurance.
             </p>
           </SlideUp>
 
           <SlideUp delay={0.3}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <Button asChild size="lg" className="text-lg px-8">
-                <Link href="/auth/sign-in">
+                <Link href="/auth/register">
                   Get Started
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-lg px-8">
-                <Link href="/app/dashboard">
-                  View Dashboard
-                </Link>
+                <Link href="/app/dashboard">View Dashboard</Link>
               </Button>
             </div>
           </SlideUp>
@@ -102,7 +100,9 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <FadeIn>
             <div className="text-center mb-12">
-              <h2 id="features-title" className="text-3xl md:text-4xl font-bold mb-4">Powerful Features</h2>
+              <h2 id="features-title" className="text-3xl md:text-4xl font-bold mb-4">
+                Powerful Features
+              </h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
                 Everything you need to create and manage production-ready AI agents
               </p>
@@ -163,7 +163,7 @@ export default function Home() {
                   Join thousands of developers building the next generation of AI agents
                 </p>
                 <Button asChild size="lg" className="text-lg px-8">
-                  <Link href="/auth/sign-in">
+                  <Link href="/auth/register">
                     Create Your First Agent
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>

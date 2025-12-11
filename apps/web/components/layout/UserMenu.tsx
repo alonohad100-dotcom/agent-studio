@@ -36,7 +36,7 @@ export function UserMenu() {
   const handleSignOut = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/auth/sign-in')
+    router.push('/auth/login')
     router.refresh()
   }
 
@@ -68,4 +68,3 @@ export function UserMenu() {
     </DropdownMenu>
   )
 }
-

@@ -1,6 +1,6 @@
 /**
  * Authentication Utilities
- * 
+ *
  * Server-side authentication helpers for Agent Studio
  */
 
@@ -41,7 +41,7 @@ export async function getServerSession() {
 
 /**
  * Require authentication
- * Redirects to sign-in if user is not authenticated
+ * Redirects to login if user is not authenticated
  * Returns user if authenticated
  */
 export async function requireAuth() {
@@ -60,7 +60,7 @@ export async function requireAuth() {
   const session = await getServerSession()
 
   if (!session) {
-    redirect('/auth/sign-in')
+    redirect('/auth/login')
   }
 
   return session.user
@@ -91,4 +91,3 @@ export async function isAuthenticated(): Promise<boolean> {
   const user = await getUser()
   return user !== null
 }
-

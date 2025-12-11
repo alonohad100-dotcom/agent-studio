@@ -17,7 +17,6 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // If there's an error or no code, redirect to sign-in
-  return NextResponse.redirect(new URL('/auth/sign-in?error=auth_failed', request.url))
+  // If there's an error or no code, redirect to login
+  return NextResponse.redirect(new URL('/auth/login?error=auth_failed', request.url))
 }
-
