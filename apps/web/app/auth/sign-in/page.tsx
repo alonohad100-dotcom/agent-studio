@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { getAppUrl } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { InputEnhanced } from '@/components/ui/input-enhanced'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -22,7 +23,8 @@ export default function SignInPage() {
 
     try {
       const supabase = createClient()
-      const redirectTo = new URL('/auth/callback', window.location.origin)
+      const appUrl = getAppUrl()
+      const redirectTo = new URL('/auth/callback', appUrl)
       redirectTo.searchParams.set('next', '/app/dashboard')
 
       const { error } = await supabase.auth.signInWithOtp({
@@ -65,8 +67,9 @@ export default function SignInPage() {
             </div>
             <div className="space-y-4">
               <h2 className="text-2xl font-semibold">Welcome Back</h2>
-                <p className="text-muted-foreground text-lg">
-                Sign in to continue building and managing your AI agents. We&apos;ll send you a magic link - no password needed!
+              <p className="text-muted-foreground text-lg">
+                Sign in to continue building and managing your AI agents. We&apos;ll send you a
+                magic link - no password needed!
               </p>
               <div className="space-y-3 pt-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -91,9 +94,7 @@ export default function SignInPage() {
           <Card className="w-full max-w-md mx-auto shadow-xl">
             <CardHeader className="space-y-1">
               <CardTitle className="text-2xl font-bold">Sign In</CardTitle>
-              <CardDescription>
-                Enter your email to receive a magic link
-              </CardDescription>
+              <CardDescription>Enter your email to receive a magic link</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSignIn} className="space-y-6">
@@ -102,7 +103,7 @@ export default function SignInPage() {
                     type="email"
                     label="Email address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={e => setEmail(e.target.value)}
                     required
                     disabled={loading}
                     placeholder="you@example.com"
@@ -122,11 +123,7 @@ export default function SignInPage() {
                     >
                       <Alert
                         variant={message.type === 'error' ? 'destructive' : 'default'}
-                        className={
-                          message.type === 'success'
-                            ? 'border-success bg-success/10'
-                            : ''
-                        }
+                        className={message.type === 'success' ? 'border-success bg-success/10' : ''}
                       >
                         {message.type === 'success' ? (
                           <CheckCircle2 className="h-4 w-4 text-success" />
@@ -160,7 +157,7 @@ export default function SignInPage() {
                       type="button"
                       variant="outline"
                       className="w-full"
-                      onClick={() => window.location.href = '/auth/dev-login'}
+                      onClick={() => (window.location.href = '/auth/dev-login')}
                     >
                       <Code className="mr-2 h-4 w-4" />
                       Development Login (Bypass)

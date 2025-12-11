@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
+import { getAppUrl } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { InputEnhanced } from '@/components/ui/input-enhanced'
@@ -24,11 +25,11 @@ export default function DevLoginPage() {
 
     try {
       const supabase = createClient()
-      
+
       // For development: Sign in with password or create a dev session
       const loginEmail = email || 'dev@agentstudio.local'
       const loginPassword = 'dev123456'
-      
+
       const { error } = await supabase.auth.signInWithPassword({
         email: loginEmail,
         password: loginPassword,
@@ -36,13 +37,17 @@ export default function DevLoginPage() {
 
       if (error) {
         // If user doesn't exist, try to sign up
-        if (error.message.includes('Invalid login credentials') || error.message.includes('Email not confirmed')) {
+        if (
+          error.message.includes('Invalid login credentials') ||
+          error.message.includes('Email not confirmed')
+        ) {
           // First try sign up
+          const appUrl = getAppUrl()
           const { error: signUpError } = await supabase.auth.signUp({
             email: loginEmail,
             password: loginPassword,
             options: {
-              emailRedirectTo: `${window.location.origin}/auth/callback?next=/app/dashboard`,
+              emailRedirectTo: `${appUrl}/auth/callback?next=/app/dashboard`,
             },
           })
 
@@ -54,16 +59,16 @@ export default function DevLoginPage() {
 
           // Wait a bit then try to sign in
           await new Promise(resolve => setTimeout(resolve, 500))
-          
+
           const { error: signInError } = await supabase.auth.signInWithPassword({
             email: loginEmail,
             password: loginPassword,
           })
 
           if (signInError) {
-            setMessage({ 
-              type: 'error', 
-              text: `Sign in failed: ${signInError.message}. You may need to check your Supabase settings for email confirmation.` 
+            setMessage({
+              type: 'error',
+              text: `Sign in failed: ${signInError.message}. You may need to check your Supabase settings for email confirmation.`,
             })
           } else {
             router.push('/app/dashboard')
@@ -106,7 +111,7 @@ export default function DevLoginPage() {
                   type="email"
                   label="Email (any email works)"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                   disabled={loading}
                   placeholder="dev@agentstudio.local"
@@ -139,11 +144,7 @@ export default function DevLoginPage() {
                   >
                     <Alert
                       variant={message.type === 'error' ? 'destructive' : 'default'}
-                      className={
-                        message.type === 'success'
-                          ? 'border-success bg-success/10'
-                          : ''
-                      }
+                      className={message.type === 'success' ? 'border-success bg-success/10' : ''}
                     >
                       {message.type === 'success' ? (
                         <CheckCircle2 className="h-4 w-4 text-success" />
@@ -183,4 +184,3 @@ export default function DevLoginPage() {
     </div>
   )
 }
-
