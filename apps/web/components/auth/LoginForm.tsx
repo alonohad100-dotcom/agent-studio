@@ -51,7 +51,7 @@ function LoginFormContent({ redirectTo }: LoginFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-6" aria-label="Sign in form" noValidate>
       <div className="space-y-4">
         <div className="space-y-2">
           <InputEnhanced
@@ -62,8 +62,11 @@ function LoginFormContent({ redirectTo }: LoginFormProps) {
             required
             disabled={loading}
             placeholder="you@example.com"
-            leftIcon={<Mail className="h-4 w-4" />}
+            leftIcon={<Mail className="h-4 w-4" aria-hidden="true" />}
             error={error && error.includes('email') ? error : undefined}
+            aria-describedby={error && error.includes('email') ? 'email-error' : undefined}
+            aria-invalid={error && error.includes('email') ? 'true' : 'false'}
+            autoComplete="email"
           />
         </div>
 
@@ -75,12 +78,17 @@ function LoginFormContent({ redirectTo }: LoginFormProps) {
             required
             disabled={loading}
             placeholder="Enter your password"
-            leftIcon={<Lock className="h-4 w-4" />}
+            leftIcon={<Lock className="h-4 w-4" aria-hidden="true" />}
+            aria-describedby={error && error.includes('password') ? 'password-error' : undefined}
+            aria-invalid={error && error.includes('password') ? 'true' : 'false'}
+            autoComplete="current-password"
           />
         </div>
       </div>
 
-      <AuthError error={error} />
+      <div role="alert" aria-live="polite">
+        <AuthError error={error} />
+      </div>
 
       <Button
         type="submit"
@@ -88,6 +96,7 @@ function LoginFormContent({ redirectTo }: LoginFormProps) {
         loading={loading}
         className="w-full"
         size="lg"
+        aria-label={loading ? 'Signing in, please wait' : 'Sign in to your account'}
       >
         {loading ? 'Signing in...' : 'Sign in'}
       </Button>
@@ -95,14 +104,21 @@ function LoginFormContent({ redirectTo }: LoginFormProps) {
       <div className="text-center text-sm space-y-2">
         <p className="text-muted-foreground">
           Don&apos;t have an account?{' '}
-          <Link href="/auth/register" className="text-primary hover:underline font-medium">
+          <Link
+            href="/auth/register"
+            className="text-primary hover:underline font-medium"
+            aria-label="Go to registration page"
+          >
             Register here
           </Link>
         </p>
-        {/* Future: Add forgot password link */}
-        {/* <Link href="/auth/forgot-password" className="text-sm text-muted-foreground hover:underline">
-          Forgot password?
-        </Link> */}
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:underline block"
+          aria-label="Go back to home page"
+        >
+          Back to Home
+        </Link>
       </div>
     </form>
   )

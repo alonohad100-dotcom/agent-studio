@@ -162,12 +162,28 @@ export default function Home() {
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Join thousands of developers building the next generation of AI agents
                 </p>
-                <Button asChild size="lg" className="text-lg px-8">
-                  <Link href="/auth/register">
-                    Create Your First Agent
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-lg px-8"
+                    aria-label="Sign in to your account"
+                  >
+                    <Link href="/auth/login">
+                      Sign In
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8"
+                    aria-label="Create a new account"
+                  >
+                    <Link href="/auth/register">Create Account</Link>
+                  </Button>
+                </div>
               </FadeIn>
             </CardContent>
           </Card>
