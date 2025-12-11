@@ -41,9 +41,7 @@ https://agent-studio-XXXXX-ohadonmicrosofts-projects.vercel.app
 1. Still in Authentication section
 2. Click: **"URL Configuration"**
 3. Find: **"Site URL"** field
-4. Enter: `https://YOUR-VERCEL-DOMAIN.vercel.app`
-   - Replace `YOUR-VERCEL-DOMAIN` with your actual Vercel domain
-   - Example: `https://agent-studio-ecv1igz5e-ohadonmicrosofts-projects.vercel.app`
+4. Enter: `https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app`
 5. Click: **"Save"**
 
 ### STEP 3: Add Redirect URLs
