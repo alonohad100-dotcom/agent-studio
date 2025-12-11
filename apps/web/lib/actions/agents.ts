@@ -71,10 +71,7 @@ export async function createAgent(input: z.infer<typeof createAgentSchema>) {
   })
 }
 
-export async function updateAgentMeta(
-  agentId: string,
-  updates: z.infer<typeof updateAgentSchema>
-) {
+export async function updateAgentMeta(agentId: string, updates: z.infer<typeof updateAgentSchema>) {
   const supabase = await createClient()
   const {
     data: { user },
@@ -182,11 +179,7 @@ export async function getAgent(agentId: string) {
     throw new Error('Unauthorized')
   }
 
-  const { data, error } = await supabase
-    .from('agents')
-    .select('*')
-    .eq('id', agentId)
-    .single()
+  const { data, error } = await supabase.from('agents').select('*').eq('id', agentId).single()
 
   if (error || !data) {
     throw new Error('Agent not found')
@@ -209,7 +202,13 @@ export async function listAgents(filters: ListAgentsFilters = {}) {
   const supabase = await createClient()
   const {
     data: { user },
+    error: authError,
   } = await supabase.auth.getUser()
+
+  if (authError) {
+    console.error('Auth error in listAgents:', authError)
+    throw new Error('Authentication failed. Please sign in again.')
+  }
 
   if (!user) {
     throw new Error('Unauthorized')
@@ -233,9 +232,24 @@ export async function listAgents(filters: ListAgentsFilters = {}) {
   const { data, error } = await query
 
   if (error) {
-    throw new Error(`Failed to list agents: ${error.message}`)
+    console.error('Database error in listAgents:', {
+      error,
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+    })
+
+    // Provide user-friendly error messages
+    if (error.code === 'PGRST301' || error.message.includes('permission denied')) {
+      throw new Error('You do not have permission to access this resource.')
+    } else if (error.code === 'PGRST116') {
+      // No rows found - return empty array
+      return []
+    } else {
+      throw new Error(`Failed to load agents: ${error.message}`)
+    }
   }
 
   return data || []
 }
-

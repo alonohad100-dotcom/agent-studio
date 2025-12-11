@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { FadeIn, StaggerList } from '@/components/ui'
+import { staggerItemVariants } from '@/lib/utils/animations'
 import { Bot, Plus, FileText, Sparkles, TrendingUp, Clock, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
@@ -17,7 +18,7 @@ interface DashboardClientProps {
   recentAgents: Agent[]
 }
 
-export function DashboardClient({ recentAgents }: DashboardClientProps) {
+export function DashboardClient({ user, recentAgents }: DashboardClientProps) {
   const stats = [
     {
       label: 'Total Agents',
@@ -51,11 +52,22 @@ export function DashboardClient({ recentAgents }: DashboardClientProps) {
 
   return (
     <div className="space-y-8" role="region" aria-label="Dashboard content">
+      {/* Header with animation */}
+      <FadeIn>
+        <header>
+          <h1 className="text-4xl font-bold">Dashboard</h1>
+          <p className="text-muted-foreground mt-2">
+            Welcome back, {user.email?.split('@')[0] || 'Developer'}! Here&apos;s what&apos;s
+            happening with your agents.
+          </p>
+        </header>
+      </FadeIn>
+
       {/* Stats Cards */}
       <section aria-label="Agent statistics">
         <StaggerList className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, index) => (
-            <motion.div key={index} variants={{}}>
+            <motion.div key={index} variants={staggerItemVariants}>
               <Card hoverable className="h-full" role="article" aria-label={stat.label}>
                 <CardContent className="p-6">
                   <div className="flex items-center justify-between">
@@ -123,7 +135,7 @@ export function DashboardClient({ recentAgents }: DashboardClientProps) {
           {recentAgents.length > 0 ? (
             <StaggerList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recentAgents.map(agent => (
-                <motion.div key={agent.id} variants={{}}>
+                <motion.div key={agent.id} variants={staggerItemVariants}>
                   <Link href={`/app/agents/${agent.id}/overview`} className="block h-full">
                     <Card hoverable className="cursor-pointer h-full">
                       <CardHeader>

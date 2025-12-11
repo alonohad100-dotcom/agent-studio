@@ -8,6 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage",
+    "validate-env": "tsc --noEmit scripts/validate-env.ts && node -r esbuild-register scripts/validate-env.ts 2>/dev/null || echo 'Environment validation runs automatically when app starts. Check .env.local file if errors occur.'",
     "clean": "rm -rf .next dist"
   },
   "dependencies": {

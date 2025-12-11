@@ -6,6 +6,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { env } from '@/lib/config/env'
 
 /**
  * Get the current server session
@@ -14,9 +15,8 @@ import { redirect } from 'next/navigation'
 export async function getServerSession() {
   // Development mode: allow bypassing auth if flag is set
   const DEV_MODE = process.env.NODE_ENV === 'development'
-  const DEV_BYPASS_AUTH = process.env.NEXT_PUBLIC_DEV_BYPASS_AUTH === 'true'
 
-  if (DEV_MODE && DEV_BYPASS_AUTH) {
+  if (DEV_MODE && env.dev.bypassAuth) {
     // Return a mock user for development
     return {
       user: {
@@ -47,9 +47,8 @@ export async function getServerSession() {
 export async function requireAuth() {
   // Development mode: allow bypassing auth if flag is set
   const DEV_MODE = process.env.NODE_ENV === 'development'
-  const DEV_BYPASS_AUTH = process.env.NEXT_PUBLIC_DEV_BYPASS_AUTH === 'true'
 
-  if (DEV_MODE && DEV_BYPASS_AUTH) {
+  if (DEV_MODE && env.dev.bypassAuth) {
     // Return a mock user for development
     return {
       id: 'dev-user-id',
