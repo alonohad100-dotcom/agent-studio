@@ -935,3 +935,16 @@ This specification defines:
 - Real DB, real storage, real auth.
 - Page-by-page desktop and mobile layouts.
 - Cursor Agent development constraints with strict no-mock enforcement.
+
+---
+
+## 📚 Documentation
+
+All project documentation is organized in the [`docs/`](./docs/) directory:
+
+- **Setup & Environment:** [`docs/setup/`](./docs/setup/) - Development environment setup
+- **API Keys:** [`docs/api-keys/`](./docs/api-keys/) - External services configuration
+- **Supabase:** [`docs/supabase/`](./docs/supabase/) - Supabase-specific guides
+- **Implementation:** [`docs/implementation/`](./docs/implementation/) - Detailed implementation plan
+
+See [`docs/README.md`](./docs/README.md) for the complete documentation index.

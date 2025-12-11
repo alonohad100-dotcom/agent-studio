@@ -1,3 +1,8 @@
-// Database client and types will be exported from here
-export {}
+/**
+ * Database Client Package
+ * 
+ * Provides typed database access and utilities for Agent Studio
+ */
 
+export { createClient } from './client'
+export * from './types'

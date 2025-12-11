@@ -67,10 +67,11 @@ Required environment variables (see `.env.example`):
 
 ## Next Steps
 
-1. Set up your Supabase project (see IMPLEMENTATION_PLAN.md Section 2.2)
-2. Configure database schema (Phase 1.2)
-3. Set up authentication (Phase 1.3)
-4. Start building features according to the implementation plan
+1. Set up your Supabase project (see [`../supabase/SUPABASE_SETUP_COMPLETE.md`](../supabase/SUPABASE_SETUP_COMPLETE.md))
+2. Configure API keys (see [`../api-keys/API_KEYS_SETUP.md`](../api-keys/API_KEYS_SETUP.md))
+3. Configure database schema (see [`../implementation/IMPLEMENTATION_PLAN.md`](../implementation/IMPLEMENTATION_PLAN.md) Phase 1.2)
+4. Set up authentication (Phase 1.3)
+5. Start building features according to the [implementation plan](../implementation/IMPLEMENTATION_PLAN.md)
 
 ## Troubleshooting
 

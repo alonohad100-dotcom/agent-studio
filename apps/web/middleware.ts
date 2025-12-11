@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
         get(name: string) {
           return request.cookies.get(name)?.value
         },
-        set(name: string, value: string, options: any) {
+        set(name: string, value: string, options?: Record<string, unknown>) {
           request.cookies.set({
             name,
             value,
@@ -33,7 +33,7 @@ export async function middleware(request: NextRequest) {
             ...options,
           })
         },
-        remove(name: string, options: any) {
+        remove(name: string, options?: Record<string, unknown>) {
           request.cookies.set({
             name,
             value: '',
@@ -54,13 +54,31 @@ export async function middleware(request: NextRequest) {
     }
   )
 
+  // Development mode: allow bypassing auth if flag is set
+  const DEV_MODE = process.env.NODE_ENV === 'development'
+  const DEV_BYPASS_AUTH = process.env.NEXT_PUBLIC_DEV_BYPASS_AUTH === 'true'
+
+  if (DEV_MODE && DEV_BYPASS_AUTH && request.nextUrl.pathname.startsWith('/app')) {
+    // Allow access in dev mode with bypass flag
+    return response
+  }
+
+  // Refresh session if expired
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Protect /app routes
+  // Protect /app routes - redirect to sign-in if not authenticated
   if (request.nextUrl.pathname.startsWith('/app') && !user) {
-    return NextResponse.redirect(new URL('/auth/sign-in', request.url))
+    const redirectUrl = new URL('/auth/sign-in', request.url)
+    redirectUrl.searchParams.set('redirect', request.nextUrl.pathname)
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  // Redirect authenticated users away from auth pages
+  if (user && request.nextUrl.pathname.startsWith('/auth/sign-in')) {
+    const redirectTo = request.nextUrl.searchParams.get('redirect') || '/app/dashboard'
+    return NextResponse.redirect(new URL(redirectTo, request.url))
   }
 
   return response
