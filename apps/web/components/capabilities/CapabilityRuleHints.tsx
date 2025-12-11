@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Lightbulb, AlertCircle } from 'lucide-react'
+import { Lightbulb } from 'lucide-react'
 import { recommendCapabilities } from '@core/capabilities/recommendations'
 import type { SpecJSON } from '@core/types/spec'
 

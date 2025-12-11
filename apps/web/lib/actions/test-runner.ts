@@ -207,6 +207,7 @@ export async function runSingleTest(agentId: string, testCaseId: string, useDraf
 
   // Run single test
   const { runTest } = await import('@core/testing/runner')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const result = await runTest(testCase as any, promptPackage, provider)
 
   return result

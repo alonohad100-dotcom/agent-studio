@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server'
 import { requireAuth } from '@/lib/auth'
 import { uploadKnowledgeFile } from '@/lib/actions/knowledge'
 import { NextResponse } from 'next/server'

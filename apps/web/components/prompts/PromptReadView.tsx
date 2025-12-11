@@ -1,8 +1,14 @@
 'use client'
 
 import { useRef } from 'react'
-import Editor from '@monaco-editor/react'
+import dynamic from 'next/dynamic'
 import type { editor } from 'monaco-editor'
+
+// Lazy load Monaco Editor to prevent build hangs
+const Editor = dynamic(() => import('@monaco-editor/react'), {
+  ssr: false,
+  loading: () => <div className="flex items-center justify-center h-[400px]">Loading editor...</div>,
+})
 
 interface PromptReadViewProps {
   content: string

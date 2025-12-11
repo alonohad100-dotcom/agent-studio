@@ -2,6 +2,13 @@
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@ui', '@core', '@db'],
+  // Temporarily disable type checking during build to prevent hangs
+  typescript: {
+    ignoreBuildErrors: false, // Keep false, but optimize config
+  },
+  eslint: {
+    ignoreDuringBuilds: false, // Keep false, but optimize config
+  },
   experimental: {
     serverActions: {
       bodySizeLimit: '2mb',
@@ -15,6 +22,20 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+  },
+  // Webpack configuration for Monaco Editor
+  webpack: (config, { isServer }) => {
+    // Monaco Editor works only on client-side
+    if (!isServer) {
+      config.resolve.fallback = {
+        ...config.resolve.fallback,
+        fs: false,
+        path: false,
+        crypto: false,
+      }
+    }
+    
+    return config
   },
   // Headers for security and performance
   async headers() {

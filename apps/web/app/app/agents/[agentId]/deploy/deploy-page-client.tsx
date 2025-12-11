@@ -120,7 +120,7 @@ export function DeployPageClient({ agentId, versions }: DeployPageClientProps) {
             ) : (
               <Card>
                 <CardContent className="py-8 text-center text-muted-foreground">
-                  <p>Click "Load Export Data" to preview and download individual files</p>
+                  <p>Click &quot;Load Export Data&quot; to preview and download individual files</p>
                 </CardContent>
               </Card>
             )}

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
-import { Loader2, Download, X } from 'lucide-react'
+import { Loader2, Download } from 'lucide-react'
 import type { Database } from '@db/types'
 
 type FileRow = Database['public']['Tables']['files']['Row']
@@ -64,6 +64,7 @@ export function FilePreviewModal({ file, agentId, onClose }: FilePreviewModalPro
           ) : downloadUrl ? (
             <div className="space-y-4">
               {isImage ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={downloadUrl} alt={file.name} className="max-w-full max-h-[60vh] mx-auto" />
               ) : isTextFile ? (
                 <iframe

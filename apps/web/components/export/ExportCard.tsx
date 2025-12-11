@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Download, FileJson, Package } from 'lucide-react'
+import { Download, FileJson } from 'lucide-react'
 
 interface ExportCardProps {
   title: string

@@ -14,7 +14,7 @@ interface VersionDetailClientProps {
   agentId: string
 }
 
-export function VersionDetailClient({ version, allVersions, agentId }: VersionDetailClientProps) {
+export function VersionDetailClient({ version, allVersions, agentId: _agentId }: VersionDetailClientProps) {
   const [compareVersionId, setCompareVersionId] = useState<string | null>(null)
 
   const compareVersion = compareVersionId

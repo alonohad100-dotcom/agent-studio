@@ -14,7 +14,7 @@ interface VersionsPageClientProps {
 }
 
 export function VersionsPageClient({ agentId, initialVersions }: VersionsPageClientProps) {
-  const [versions, setVersions] = useState<AgentVersion[]>(initialVersions)
+  const [versions] = useState<AgentVersion[]>(initialVersions)
   const [publishDialogOpen, setPublishDialogOpen] = useState(false)
 
   const handlePublished = () => {

@@ -1,5 +1,4 @@
 import { requireAuth } from '@/lib/auth'
-import { getPromptPackage } from '@/lib/actions/prompts'
 import { PromptCompiler } from '@core/compiler'
 import { getDraftSpec } from '@/lib/actions/drafts'
 import { createClient } from '@/lib/supabase/server'

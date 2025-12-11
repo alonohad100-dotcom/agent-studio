@@ -20,6 +20,7 @@ export function trackEvent(event: TelemetryEvent) {
   // For now, we'll log to console and could extend to send to Sentry/PostHog/etc.
   
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.log('[Telemetry]', event)
   }
 
@@ -32,6 +33,7 @@ export function trackEvent(event: TelemetryEvent) {
  */
 export function trackError(error: Error, context?: Record<string, unknown>) {
   if (typeof window !== 'undefined') {
+    // eslint-disable-next-line no-console
     console.error('[Error]', error, context)
     
     // Future: Send to Sentry
@@ -44,6 +46,7 @@ export function trackError(error: Error, context?: Record<string, unknown>) {
  */
 export function trackPerformance(metric: string, value: number, unit: string = 'ms') {
   if (typeof window !== 'undefined' && process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.log(`[Performance] ${metric}: ${value}${unit}`)
   }
 

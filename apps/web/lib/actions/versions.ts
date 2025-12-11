@@ -68,7 +68,7 @@ export async function getVersion(versionId: string): Promise<AgentVersion | null
   }
 
   // Remove nested agents data
-  const { agents, ...versionData } = version as unknown as AgentVersion & { agents: unknown }
+  const { agents: _agents, ...versionData } = version as unknown as AgentVersion & { agents: unknown }
   return versionData as AgentVersion
 }
 

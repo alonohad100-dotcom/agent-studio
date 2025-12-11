@@ -3,8 +3,7 @@
 import { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Upload, File, X, Loader2 } from 'lucide-react'
+import { Upload, File, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 
 interface KnowledgeUploadZoneProps {
@@ -14,7 +13,7 @@ interface KnowledgeUploadZoneProps {
 
 export function KnowledgeUploadZone({ agentId, onUploadComplete }: KnowledgeUploadZoneProps) {
   const [uploading, setUploading] = useState(false)
-  const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({})
+  const [_uploadProgress, setUploadProgress] = useState<Record<string, number>>({})
 
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {

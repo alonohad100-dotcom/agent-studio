@@ -10,7 +10,6 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
-import { Badge } from '@/components/ui/badge'
 import { Plus, X } from 'lucide-react'
 import type { TestCaseInput, TestCaseType } from '@core/types/test'
 

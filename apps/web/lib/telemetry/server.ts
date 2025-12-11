@@ -16,6 +16,7 @@ export function logServerEvent(event: ServerEvent) {
   const timestamp = new Date().toISOString()
   
   if (process.env.NODE_ENV === 'development') {
+    // eslint-disable-next-line no-console
     console.log(`[Server Event] ${timestamp}`, event)
   }
 
@@ -29,6 +30,7 @@ export function logServerEvent(event: ServerEvent) {
 export function logServerError(error: Error, context?: Record<string, unknown>) {
   const timestamp = new Date().toISOString()
   
+  // eslint-disable-next-line no-console
   console.error(`[Server Error] ${timestamp}`, error, context)
 
   // Future: Send to error tracking service

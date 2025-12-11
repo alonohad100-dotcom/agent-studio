@@ -34,7 +34,7 @@ import type { Agent } from '@db/types'
 export function CommandPalette() {
   const [open, setOpen] = useState(false)
   const [agents, setAgents] = useState<Agent[]>([])
-  const [isLoadingAgents, setIsLoadingAgents] = useState(false)
+  const [_isLoadingAgents, setIsLoadingAgents] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
 

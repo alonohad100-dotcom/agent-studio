@@ -5,7 +5,6 @@ import { getDraftSpec } from './drafts'
 import { createAIProvider } from '@core/ai'
 import { generateTestCasesFromSpec, generateSafetyTests } from '@core/testing/generator'
 import { createTestCase } from './testing'
-import type { TestCaseInput } from '@core/types/test'
 
 export async function generateTestSuite(agentId: string) {
   const user = await requireAuth()

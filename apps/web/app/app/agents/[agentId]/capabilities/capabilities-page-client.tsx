@@ -23,7 +23,7 @@ export function CapabilitiesPageClient({
 }: CapabilitiesPageClientProps) {
   const [capabilities, setCapabilities] = useState<CapabilitiesJSON>(initialCapabilities)
   const [saveStatus, setSaveStatus] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
-  const [isPending, startTransition] = useTransition()
+  const [_isPending, startTransition] = useTransition()
 
   const debouncedSave = useDebouncedCallback(
     async (updatedCapabilities: CapabilitiesJSON) => {
