@@ -5,18 +5,28 @@ import { FadeIn } from '@/components/ui'
 
 export default async function DashboardPage() {
   const user = await requireAuth()
-  const allAgents = await listAgents({}).catch(() => []) // Handle errors gracefully
-  const recentAgents = allAgents.slice(0, 6)
+
+  // Fetch agents with better error handling
+  let allAgents: Awaited<ReturnType<typeof listAgents>> = []
+  try {
+    allAgents = await listAgents({})
+  } catch (error) {
+    console.error('Failed to load agents:', error)
+    // Continue with empty array - user can still see the dashboard
+  }
+
+  const recentAgents = Array.isArray(allAgents) ? allAgents.slice(0, 6) : []
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" role="main" aria-label="Dashboard">
       <FadeIn>
-        <div>
+        <header>
           <h1 className="text-4xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground mt-2">
-            Welcome back, {user.email?.split('@')[0] || 'Developer'}! Here&apos;s what&apos;s happening with your agents.
+            Welcome back, {user.email?.split('@')[0] || 'Developer'}! Here&apos;s what&apos;s
+            happening with your agents.
           </p>
-        </div>
+        </header>
       </FadeIn>
 
       <DashboardClient user={user} recentAgents={recentAgents} />
