@@ -17,7 +17,6 @@ export function RegisterForm() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
 
   const validateForm = (): string | null => {
     if (!email || !email.includes('@')) {
@@ -65,40 +64,20 @@ export function RegisterForm() {
         return
       }
 
-      // Check if email verification is required
-      if (data.user && !data.session) {
-        // Email verification required
-        setSuccess(true)
-        setError(null)
-        // Redirect to verify-email page or show message
-        setTimeout(() => {
-          router.push('/auth/verify-email?email=' + encodeURIComponent(email))
-        }, 2000)
-      } else if (data.session) {
-        // Auto-logged in (email verification disabled)
+      // Auto-login after registration (email verification disabled)
+      if (data.user && data.session) {
+        // User is automatically logged in
         router.push('/app/dashboard')
         router.refresh()
+      } else if (data.user && !data.session) {
+        // This shouldn't happen if email verification is disabled, but handle it
+        setError('Registration successful but login failed. Please try signing in.')
+        setLoading(false)
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred')
       setLoading(false)
     }
-  }
-
-  if (success) {
-    return (
-      <div className="space-y-4">
-        <div className="text-center space-y-2">
-          <h3 className="text-lg font-semibold">Registration successful!</h3>
-          <p className="text-sm text-muted-foreground">
-            Please check your email to verify your account before signing in.
-          </p>
-        </div>
-        <Button asChild className="w-full" variant="outline">
-          <Link href="/auth/login">Go to Sign In</Link>
-        </Button>
-      </div>
-    )
   }
 
   return (

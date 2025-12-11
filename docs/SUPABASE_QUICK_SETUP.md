@@ -9,18 +9,11 @@
 
 ### Your Vercel Domain
 
-Based on your deployments, your production domain pattern is:
+**Production Domain:**
 
 ```
-https://agent-studio-XXXXX-ohadonmicrosofts-projects.vercel.app
+https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app
 ```
-
-**To find your EXACT domain:**
-
-1. Go to: https://vercel.com/dashboard
-2. Click: **"agent-studio"** project
-3. Look at the **"Domains"** section in Settings
-4. OR check the latest successful deployment URL
 
 ---
 
@@ -33,7 +26,7 @@ https://agent-studio-XXXXX-ohadonmicrosofts-projects.vercel.app
 3. Click: **"Providers"**
 4. Find: **"Email"** in the list
 5. Toggle: **"Enable Email Signup"** → **ON** ✅
-6. Toggle: **"Confirm email"** → **ON** ✅ (recommended)
+6. Toggle: **"Confirm email"** → **OFF** ❌ (disable email verification - users login immediately)
 7. Click: **"Save"**
 
 ### STEP 2: Set Site URL
@@ -48,18 +41,11 @@ https://agent-studio-XXXXX-ohadonmicrosofts-projects.vercel.app
 
 1. Still in **"URL Configuration"**
 2. Find: **"Redirect URLs"** section
-3. Add these URLs (replace with YOUR actual Vercel domain):
+3. Add these URLs:
 
    ```
-   https://YOUR-VERCEL-DOMAIN.vercel.app/auth/callback
-   https://YOUR-VERCEL-DOMAIN.vercel.app/**
-   ```
-
-   **Example:**
-
-   ```
-   https://agent-studio-ecv1igz5e-ohadonmicrosofts-projects.vercel.app/auth/callback
-   https://agent-studio-ecv1igz5e-ohadonmicrosofts-projects.vercel.app/**
+   https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app/auth/callback
+   https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app/**
    ```
 
 4. **How to add:**
@@ -69,16 +55,10 @@ https://agent-studio-XXXXX-ohadonmicrosofts-projects.vercel.app
 
 5. Click: **"Save"**
 
-### STEP 4: Check Email Template
+### STEP 4: Skip Email Templates (Not Needed)
 
-1. Still in Authentication section
-2. Click: **"Email Templates"**
-3. Click: **"Confirm signup"** template
-4. Check the **Body** field
-5. Make sure it contains: `{{ .ConfirmationURL }}`
-   - This creates the verification link
-   - If missing, click "Reset to default" or add it manually
-6. Click: **"Save"**
+Since email verification is disabled, you don't need to configure email templates.
+Users will be automatically logged in after registration.
 
 ---
 
@@ -112,11 +92,11 @@ Your Vercel domain might be in your environment variables as `VERCEL_URL`
 Before testing, verify:
 
 - [ ] **Authentication → Providers → Email**: "Enable Email Signup" = ON
+- [ ] **Authentication → Providers → Email**: "Confirm email" = OFF (no verification)
 - [ ] **Authentication → URL Configuration → Site URL**: Your Vercel domain (https://...)
 - [ ] **Authentication → URL Configuration → Redirect URLs**:
-  - [ ] Your domain + `/auth/callback`
+  - [ ] Your domain + `/auth/callback` (optional, only if you enable verification later)
   - [ ] Your domain + `/**`
-- [ ] **Authentication → Email Templates → Confirm signup**: Has `{{ .ConfirmationURL }}`
 
 ---
 
@@ -124,20 +104,15 @@ Before testing, verify:
 
 ### Test 1: Registration
 
-1. Go to: `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/register`
+1. Go to: `https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app/auth/register`
 2. Enter email and password
 3. Click "Create account"
-4. Check email inbox for verification email
+4. You should be **automatically logged in** and redirected to `/app/dashboard`
+5. No email verification needed!
 
-### Test 2: Email Verification
+### Test 2: Login
 
-1. Open the verification email
-2. Click the verification link
-3. You should be redirected to your site
-
-### Test 3: Login
-
-1. Go to: `https://YOUR-VERCEL-DOMAIN.vercel.app/auth/login`
+1. Go to: `https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app/auth/login`
 2. Enter email and password
 3. Click "Sign in"
 4. You should be redirected to `/app/dashboard`
@@ -157,10 +132,11 @@ Before testing, verify:
 - **Add button:** Click "Add" for each URL
 - **List format:** Click "+" to add new rows
 
-### "Email template doesn't have the variable"
+### "Email verification is enabled but I don't want it"
 
-- Click "Reset to default" button
-- Or manually add: `{{ .ConfirmationURL }}`
+- Go to Authentication → Providers → Email
+- Toggle "Confirm email" to OFF
+- Click Save
 
 ### "I don't know my Vercel domain"
 
@@ -190,26 +166,18 @@ The key is:
 
 ---
 
-## 🎯 Your Exact Values (Fill These In)
+## 🎯 Your Exact Values
 
 **Supabase Site URL:**
 
 ```
-https://_____________________.vercel.app
+https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app
 ```
-
-(Your actual Vercel domain)
 
 **Supabase Redirect URLs:**
 
 ```
-https://_____________________.vercel.app/auth/callback
-https://_____________________.vercel.app/**
+https://agent-studio-qgoqjpj0g-pro-dev-f5f79272.vercel.app/**
 ```
 
-(Your actual Vercel domain)
-
-**To find your domain:**
-
-- Vercel Dashboard → agent-studio → Settings → Domains
-- OR Vercel Dashboard → agent-studio → Deployments → Latest → Copy URL
+**Note:** `/auth/callback` is optional since email verification is disabled.
